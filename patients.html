@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - Patient Management</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .patient-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .patient-table th,
+        .patient-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .patient-table th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .patient-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-badge.critical {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .status-badge.review {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+
+        .status-badge.stable {
+            background: #dcfce3;
+            color: #10b981;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #3b82f6;
+            cursor: pointer;
+            font-weight: 500;
+            padding: 0.5rem;
+        }
+
+        .action-btn:hover {
+            text-decoration: underline;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1><i class="fa-solid fa-brain" style="color: #06b6d4; margin-right: 8px;"></i>MedFuse</h1>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="fusion.html">New Fusion</a>
+            <a href="patients.html"
+                style="font-weight: 700; border-bottom: 2px solid white; padding-bottom: 5px;">Patients</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="reports.html">Reports</a>
+            <a href="history.html">History</a>
+            <a href="about.html">About</a>
+            <a href="settings.html">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2>Patient Registry</h2>
+            <button class="btn" style="width: auto;">+ Add Patient</button>
+        </div>
+
+        <input type="text" class="search-bar" placeholder="Search by Patient ID, Name, or Condition...">
+
+        <table class="patient-table">
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th>Last Scan</th>
+                    <th>Status</th>
+                    <th>Fusions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>MR-2024-0891</strong></td>
+                    <td>Eleanor Fitzgerald</td>
+                    <td>Today, 09:14 AM</td>
+                    <td><span class="status-badge critical">High Activity</span></td>
+                    <td>3 Scans</td>
+                    <td><button class="action-btn">View Reports</button></td>
+                </tr>
+                <tr>
+                    <td><strong>MR-2024-0885</strong></td>
+                    <td>Jackson Miller</td>
+                    <td>Yesterday, 14:32 PM</td>
+                    <td><span class="status-badge review">Under Review</span></td>
+                    <td>1 Scan</td>
+                    <td><button class="action-btn">View Reports</button></td>
+                </tr>
+                <tr>
+                    <td><strong>MR-2024-0742</strong></td>
+                    <td>Sarah Jenkins</td>
+                    <td>Oct 12, 2026</td>
+                    <td><span class="status-badge stable">Stable</span></td>
+                    <td>5 Scans</td>
+                    <td><button class="action-btn">View Reports</button></td>
+                </tr>
+                <tr>
+                    <td><strong>MR-2024-0711</strong></td>
+                    <td>David Chen</td>
+                    <td>Sep 28, 2026</td>
+                    <td><span class="status-badge stable">Stable</span></td>
+                    <td>2 Scans</td>
+                    <td><button class="action-btn">View Reports</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        checkAuth();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - Advanced Medical Image Fusion</title>
+
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Link to our specific landing page styles -->
+    <link rel="stylesheet" href="css/landing.css">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-brain nav-icon"></i>
+                <span>MedFuse</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-item">Features</a>
+                <a href="#how-it-works" class="nav-item">Technology</a>
+                <a href="about.html" class="nav-item">About</a>
+                <a href="login.html" class="nav-btn login-btn">Log In</a>
+                <a href="register.html" class="nav-btn register-btn">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">Next-Generation Diagnostics</div>
+            <h1 class="hero-title">
+                Reveal the Unseen.<br>
+                <span class="gradient-text">Enhance Clinical Precision.</span>
+            </h1>
+            <p class="hero-subtitle">
+                MedFuse instantly merges structural MRI and functional PET scans using advanced neural networks.
+                Detect anomalies faster, reduce diagnostic errors, and generate clinical-grade reports in seconds.
+            </p>
+            <div class="hero-actions">
+                <a href="register.html" class="btn-primary-large">
+                    Start Fusing Now <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#demo" class="btn-secondary-large">
+                    View Demo
+                </a>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-num">&lt; 2.5s</span>
+                    <span class="stat-label">Processing Time</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num">AI-Powered</span>
+                    <span class="stat-label">Anomaly Detection</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num">Clinical</span>
+                    <span class="stat-label">Automated Reports</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="glass-card main-card">
+                <div class="mockup-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                    <span class="mockup-title">MedFuse Advanced Viewer</span>
+                </div>
+                <!-- We will use placeholders that we can later replace with real images or leave them if CSS gradients suffice -->
+                <div class="image-comparison-mockup">
+                    <div class="mock-img mri-mock">
+                        <span>MRI Structural</span>
+                    </div>
+                    <div class="plus-icon"><i class="fa-solid fa-plus"></i></div>
+                    <div class="mock-img pet-mock">
+                        <span>PET Functional</span>
+                    </div>
+                    <div class="arrow-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
+                    <div class="mock-img fused-mock">
+                        <span>Fused Output</span>
+                        <div class="anomaly-box"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating accent blobs in background -->
+            <div class="blob blue-blob"></div>
+            <div class="blob cyan-blob"></div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <h2>Why Choose MedFuse?</h2>
+            <p>Designed for researchers, tailored for clinicians.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h3>Seamless Data Integration</h3>
+                <p>Combines high-resolution T2-weighted MRI structures with high-contrast PET metabolic data without
+                    quality loss.</p>
+                <a href="register.html" class="feature-link">Experience Fusion <i
+                        class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                <h3>Automated Anomaly Highlighting</h3>
+                <p>Intelligently bounding boxes and arrows pinpoint areas of high metabolic activity, ensuring no detail
+                    is missed.</p>
+                <a href="register.html" class="feature-link">See Detection <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-file-medical"></i></div>
+                <h3>Clinical Grade Reporting</h3>
+                <p>Automatically generates detailed, varied medical reports including mean intensity metrics and
+                    standard deviations.</p>
+                <a href="register.html" class="feature-link">View Reports <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-palette"></i></div>
+                <h3>Advanced 'Inferno' Colormap</h3>
+                <p>Utilizes a scientifically validated colormap on a black background to provide maximum contrast for
+                    human eye detection.</p>
+                <a href="register.html" class="feature-link">Explore Colormap <i
+                        class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-header">
+            <h2>See MedFuse in Action</h2>
+            <p>Experience the seamless fusion of MRI and PET modalities.</p>
+        </div>
+        <div class="demo-container">
+            <div class="video-placeholder">
+                <i class="fa-solid fa-play play-icon"></i>
+                <h3>Interactive Demo Available</h3>
+                <p>Register or log in to process your own medical images instantly.</p>
+                <a href="register.html" class="btn-primary-large" style="margin-top: 1.5rem; display: inline-flex;">Try
+                    it Yourself <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology / How it works Section -->
+    <section id="how-it-works" class="tech-section">
+        <div class="section-header">
+            <h2>The Science Behind MedFuse</h2>
+            <p>Advanced Deep Learning Architecture</p>
+        </div>
+        <div class="tech-content">
+            <div class="tech-text">
+                <h3>Dual-Branch Neural Network</h3>
+                <p>MedFuse utilizes a state-of-the-art dual-branch Convolutional Neural Network (CNN). One branch
+                    extracts high-frequency structural details from the MRI, while the other isolates metabolic
+                    intensity pathways from the PET scan.</p>
+                <ul class="tech-list">
+                    <li><i class="fa-solid fa-check text-green"></i> Spatial Attention Modules</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Feature Level Fusion</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Real-time Anomaly Inference</li>
+                </ul>
+            </div>
+            <div class="tech-image-container">
+                <div class="glass-card tech-card">
+                    <h4>Fusion Architecture Flowchart</h4>
+                    <img src="medfuse_patent_flowchart.png" alt="Architecture Flowchart" class="tech-flowchart">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-brain"></i> MedFuse
+            </div>
+            <p>Empowering medical professionals with AI-driven image fusion technology.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.glass-nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(2, 6, 23, 0.9)';
+                nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+            } else {
+                nav.style.background = 'rgba(15, 23, 42, 0.4)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

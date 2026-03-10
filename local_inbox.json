@@ -1,0 +1,16 @@
+[
+    {
+        "id": "20260307131354",
+        "timestamp": "2026-03-07 13:13:54",
+        "to": "22jr1a43h5@gmail.com",
+        "subject": "MedFuse Password Reset Request",
+        "body": "Hello!\n\nYou requested a password reset for your MedFuse account. Please click the strictly secure link below to set a new password:\n\nhttp://127.0.0.1:5000/reset_password.html?token=IjIyanIxYTQzaDVAZ21haWwuY29tIg.aavXOg.6mWAx5Vy3-OY-7A08v74QRtgFS0\n\nIf you did not make this request, you can safely ignore this email.\n\nBest,\nThe MedFuse AI Diagnostics Team"
+    },
+    {
+        "id": "20260307131350",
+        "timestamp": "2026-03-07 13:13:50",
+        "to": "22jr1a43h5@gmail.com",
+        "subject": "MedFuse Password Reset Request",
+        "body": "Hello!\n\nYou requested a password reset for your MedFuse account. Please click the strictly secure link below to set a new password:\n\nhttp://127.0.0.1:5000/reset_password.html?token=IjIyanIxYTQzaDVAZ21haWwuY29tIg.aavXNg.vV4ICNgPn5hWSkwFeDNPpWGrpIs\n\nIf you did not make this request, you can safely ignore this email.\n\nBest,\nThe MedFuse AI Diagnostics Team"
+    }
+]

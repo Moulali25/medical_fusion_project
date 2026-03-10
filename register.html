@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - Register</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            <h1>MedFuse</h1>
+        </div>
+    </div>
+
+    <!-- Centered Auth -->
+    <div class="auth-container">
+        <div class="auth-card premium-glass-card">
+            <div class="auth-header">
+                <h2>Create an Account</h2>
+                <p>Start fusing medical imaging with precision.</p>
+            </div>
+
+            <form onsubmit="register(event)">
+                <div class="form-group clean-group">
+                    <label>Full Name</label>
+                    <input type="text" id="username" class="form-input clean-input" required placeholder="Dr. Jane Doe">
+                </div>
+
+                <div class="form-group clean-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" class="form-input clean-input" required
+                        placeholder="doctor@medfuse.com">
+                </div>
+
+                <div class="form-group clean-group">
+                    <label>Password</label>
+                    <input type="password" id="password" class="form-input clean-input" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn btn-premium">Register Securely</button>
+            </form>
+
+            <p id="message" class="alert-message hidden"></p>
+
+            <div class="auth-footer">
+                <span>Already have an account?</span>
+                <a href="login.html" class="auth-link-premium">Log in instead</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>MedFuse</h1>
+        <div class="nav-links">
+            <a href="dashboard.html"
+                style="font-weight: 700; border-bottom: 2px solid white; padding-bottom: 5px;">Home</a>
+            <a href="fusion.html">New Fusion</a>
+            <a href="patients.html">Patients</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="reports.html">Reports</a>
+            <a href="history.html">History</a>
+            <a href="about.html">About</a>
+            <a href="settings.html">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content dashboard-layout">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="welcome-section">
+                <h2 class="welcome-text">Greetings, <span id="userDisplay"
+                        style="color: var(--primary-color);">User</span></h2>
+                <p class="text-muted">Here is your daily medical imaging summary.</p>
+            </div>
+            <div class="header-actions">
+                <a href="fusion.html" class="btn btn-premium" style="display: flex; align-items: center; gap: 8px;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M12 5v14M5 12h14" />
+                    </svg>
+                    Start New Fusion
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon soft-blue">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                    </svg>
+                </div>
+                <div class="stat-details">
+                    <p>Total Scans Analyzed</p>
+                    <h3>1,248</h3>
+                    <span class="trend up">🠕 12% vs last month</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon soft-red">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4m0 4h.01" />
+                    </svg>
+                </div>
+                <div class="stat-details">
+                    <p>Anomalies Detected</p>
+                    <h3>34</h3>
+                    <span class="trend down">🠗 5% vs last month</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon soft-green">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8m16 4H8" />
+                    </svg>
+                </div>
+                <div class="stat-details">
+                    <p>Pending Reports</p>
+                    <h3>7</h3>
+                    <span class="trend neutral">Requires radiologist review</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Split Layout -->
+        <div class="dashboard-split">
+            <!-- Left Side: Recent Scans -->
+            <div class="section-card flex-2">
+                <div class="section-header">
+                    <h3>Recent Fusions</h3>
+                    <a href="history.html" class="view-all-link">View All History <svg viewBox="0 0 24 24" width="16"
+                            height="16" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg></a>
+                </div>
+
+                <div class="recent-scans-list" id="recentScansContainer">
+                    <!-- Javascript will populate this, but here is a loading state -->
+                    <div class="scan-skeleton">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-text"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Activity Feed -->
+            <div class="section-card flex-1">
+                <div class="section-header">
+                    <h3>Activity Feed</h3>
+                </div>
+                <ul class="activity-feed">
+                    <li class="activity-item">
+                        <div class="activity-dot dot-blue"></div>
+                        <div class="activity-content">
+                            <span class="time">10:45 AM</span>
+                            <p>New MRI uploaded for <strong>Patient #1024</strong></p>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-dot dot-green"></div>
+                        <div class="activity-content">
+                            <span class="time">09:12 AM</span>
+                            <p><strong>Dr. Smith</strong> finalised PET/MRI fusion <em>ACC-202638</em></p>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-dot dot-red"></div>
+                        <div class="activity-content">
+                            <span class="time">Yesterday</span>
+                            <p>Critical Anomaly detected on <strong>Patient #0891</strong></p>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-dot dot-gray"></div>
+                        <div class="activity-content">
+                            <span class="time">Yesterday</span>
+                            <p>System security update completed.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js?v=7"></script>
+    <script>
+        checkAuth();
+        document.addEventListener("DOMContentLoaded", () => {
+            loadRecentFusions();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - Analytics Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js for beautiful charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .stat-card h3 {
+            font-size: 1rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .chart-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1><i class="fa-solid fa-brain" style="color: #06b6d4; margin-right: 8px;"></i>MedFuse</h1>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="fusion.html">New Fusion</a>
+            <a href="patients.html">Patients</a>
+            <a href="analytics.html"
+                style="font-weight: 700; border-bottom: 2px solid white; padding-bottom: 5px;">Analytics</a>
+            <a href="reports.html">Reports</a>
+            <a href="history.html">History</a>
+            <a href="about.html">About</a>
+            <a href="settings.html">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2 style="margin-bottom: 1.5rem;">Clinical Analytics Dashboard</h2>
+
+        <div class="analytics-grid">
+            <div class="stat-card">
+                <h3>Total Scans Processed</h3>
+                <div class="stat-value">1,248</div>
+                <p style="color: #10b981; font-size: 0.85rem; margin-top: 0.5rem;">↑ 12% from last month</p>
+            </div>
+            <div class="stat-card" style="border-left-color: #f59e0b;">
+                <h3>Anomalies Detected</h3>
+                <div class="stat-value">342</div>
+                <p style="color: #64748b; font-size: 0.85rem; margin-top: 0.5rem;">27.4% Detection Rate</p>
+            </div>
+            <div class="stat-card" style="border-left-color: #10b981;">
+                <h3>Avg Processing Time</h3>
+                <div class="stat-value">2.1s</div>
+                <p style="color: #10b981; font-size: 0.85rem; margin-top: 0.5rem;">Optimal Performance</p>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h3 style="margin-bottom: 1rem; color: #1e293b;">Scan Activity (Last 6 Months)</h3>
+            <canvas id="activityChart" height="100"></canvas>
+        </div>
+
+        <div class="analytics-grid">
+            <div class="chart-container" style="margin-bottom: 0;">
+                <h3 style="margin-bottom: 1rem; color: #1e293b;">Found Anomalies Breakdown</h3>
+                <canvas id="anomalyChart"></canvas>
+            </div>
+            <div class="chart-container"
+                style="margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="margin-bottom: 1rem; color: #1e293b;">System Resources</h3>
+                <div style="margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                        <span>GPU Utilization</span>
+                        <span style="font-weight: bold; color: #3b82f6;">78%</span>
+                    </div>
+                    <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px;">
+                        <div style="width: 78%; height: 100%; background: #3b82f6; border-radius: 4px;"></div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                        <span>Memory Usage</span>
+                        <span style="font-weight: bold; color: #10b981;">42%</span>
+                    </div>
+                    <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px;">
+                        <div style="width: 42%; height: 100%; background: #10b981; border-radius: 4px;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                        <span>Storage (Cloud)</span>
+                        <span style="font-weight: bold; color: #f59e0b;">89%</span>
+                    </div>
+                    <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px;">
+                        <div style="width: 89%; height: 100%; background: #f59e0b; border-radius: 4px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        checkAuth();
+
+        // Initialize Charts
+        const ctxActivity = document.getElementById('activityChart').getContext('2d');
+        new Chart(ctxActivity, {
+            type: 'line',
+            data: {
+                labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
+                datasets: [{
+                    label: 'MRI/PET Fusions',
+                    data: [142, 168, 155, 210, 245, 328],
+                    borderColor: '#2563EB',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        const ctxAnomaly = document.getElementById('anomalyChart').getContext('2d');
+        new Chart(ctxAnomaly, {
+            type: 'doughnut',
+            data: {
+                labels: ['Tumor Suspicions', 'Metabolic Spikes', 'Structural Deformities', 'Normal Variance'],
+                datasets: [{
+                    data: [45, 80, 25, 192],
+                    backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#10b981'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

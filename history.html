@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - History</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>MedFuse</h1>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="fusion.html">New Fusion</a>
+            <a href="patients.html">Patients</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="reports.html">Reports</a>
+            <a href="history.html"
+                style="font-weight: 700; border-bottom: 2px solid white; padding-bottom: 5px;">History</a>
+            <a href="about.html">About</a>
+            <a href="settings.html">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2>Fusion History</h2>
+        <div class="card">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        checkAuth();
+        loadHistory();
+    </script>
+</body>
+
+</html>
