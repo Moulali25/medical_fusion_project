@@ -1,6 +1,6 @@
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '' || window.location.protocol === 'file:'
     ? 'http://127.0.0.1:5000/api'
-    : 'https://medfuse-backend.onrender.com/api'; // Replace with actual backend URL later
+    : 'https://medical-fusion-project-1.onrender.com/api'; // Live Render backend URL
 
 // --- Auth Functions ---
 async function register(e) {
