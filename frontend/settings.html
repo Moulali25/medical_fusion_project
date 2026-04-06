@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - Settings</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .settings-section {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-section[style*="grid-column: span 2"] {
+                grid-column: span 1 !important;
+            }
+
+            .security-flex {
+                flex-direction: column;
+            }
+
+            .security-flex>div:nth-child(2) {
+                border-left: none !important;
+                padding-left: 0 !important;
+                border-top: 1px solid #eee;
+                padding-top: 2rem;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>MedFuse</h1>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="fusion.html">New Fusion</a>
+            <a href="patients.html">Patients</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="reports.html">Reports</a>
+            <a href="history.html">History</a>
+            <a href="settings.html"
+                style="font-weight: 700; border-bottom: 2px solid white; padding-bottom: 5px;">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2 style="color: white; margin-bottom: 1.5rem;">Account Settings</h2>
+
+        <div class="settings-grid">
+            <div class="settings-section">
+                <h3>Profile Information</h3>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-input" value="Dr. John Doe" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label>Specialization</label>
+                    <input type="text" class="form-input" value="Neurology / Radiology" placeholder="E.g., Neurologist">
+                </div>
+                <div class="form-group">
+                    <label>Hospital/Institution</label>
+                    <input type="text" class="form-input" value="MedFuse General Hospital" placeholder="Institution">
+                </div>
+                <button class="btn" onclick="alert('Profile updated successfully!')">Save Profile</button>
+            </div>
+
+            <div class="settings-section">
+                <h3>System Preferences</h3>
+                <div class="form-group">
+                    <label>Default Colormap</label>
+                    <select class="form-input">
+                        <option value="inferno" selected>Inferno (Recommended)</option>
+                        <option value="viridis">Viridis</option>
+                        <option value="plasma">Plasma</option>
+                        <option value="jet">Jet / Rainbow</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notification Settings</label>
+                    <label style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+                        <input type="checkbox" checked style="width: 18px; height: 18px;"> Email me when complex AI
+                        diagnosis is ready
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                        <input type="checkbox" checked style="width: 18px; height: 18px;"> Receive monthly usage and
+                        limit reports
+                    </label>
+                </div>
+                <button class="btn" style="margin-top: 1.3rem;" onclick="alert('Preferences saved successfully!')">Save
+                    Preferences</button>
+            </div>
+
+            <div class="settings-section" style="grid-column: span 2;">
+                <h3>Security & Access</h3>
+                <div class="security-flex" style="display: flex; gap: 2rem;">
+                    <div style="flex: 1;">
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" class="form-input" placeholder="********">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" class="form-input" placeholder="********">
+                        </div>
+                        <button class="btn" style="width: auto;" onclick="alert('Password changed safely!')">Update
+                            Password</button>
+                    </div>
+                    <div style="flex: 1; border-left: 1px solid #eee; padding-left: 2rem;">
+                        <h4 style="margin-top: 0; color: #1E3A8A;">Two-Factor Authentication (2FA)</h4>
+                        <p style="font-size: 0.95rem; color: #555; line-height: 1.5;">Enhance your account security by
+                            requiring an authentication code when logging in from unrecognized devices.</p>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                            <span
+                                style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #f44336;"></span>
+                            <span style="font-weight: 600; color: #666;">Status: Disabled</span>
+                        </div>
+                        <button class="btn" style="background-color: var(--success); width: auto;">Enable Authenticator
+                            App</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>checkAuth();</script>
+</body>
+
+</html>

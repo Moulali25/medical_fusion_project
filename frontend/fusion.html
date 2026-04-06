@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - New Fusion</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>MedFuse</h1>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="fusion.html" style="font-weight: 700; border-bottom: 2px solid white; padding-bottom: 5px;">New
+                Fusion</a>
+            <a href="patients.html">Patients</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="reports.html">Reports</a>
+            <a href="history.html">History</a>
+            <a href="about.html">About</a>
+            <a href="settings.html">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h2>New Fusion Task</h2>
+        <div class="fusion-grid">
+            <!-- MRI Section -->
+            <div class="image-card">
+                <div class="upload-box">
+                    <span class="upload-label">Upload MRI Image</span>
+                    <span>Click to select file</span>
+                    <input type="file" id="mriInput" accept="image/*" hidden>
+                    <img id="mriPreview" class="preview-img" alt="MRI Preview">
+                </div>
+                <!-- Pass 'MRI' as type -->
+                <button class="btn small-btn" onclick="analyzeUpload('mriInput', 'mriReport', 'MRI')">Generate MRI
+                    Report</button>
+                <div id="mriReport" class="report-box hidden"></div>
+            </div>
+
+            <!-- PET Section -->
+            <div class="image-card">
+                <div class="upload-box">
+                    <span class="upload-label">Upload PET Image</span>
+                    <span>Click to select file</span>
+                    <input type="file" id="petInput" accept="image/*" hidden>
+                    <img id="petPreview" class="preview-img" alt="PET Preview">
+                </div>
+                <!-- Pass 'PET' as type -->
+                <button class="btn small-btn" onclick="analyzeUpload('petInput', 'petReport', 'PET')">Generate PET
+                    Report</button>
+                <div id="petReport" class="report-box hidden"></div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <button class="btn" style="max-width: 300px;" onclick="fuseImages()">Fuse Images</button>
+            <div id="spinner" class="spinner"></div>
+            <p id="status" class="status-msg"></p>
+        </div>
+
+        <div class="result-container" id="resultSection">
+            <h3>Fusion Result</h3>
+            <div class="fusion-output-grid">
+                <div class="fusion-output-grid">
+                    <div class="interactive-viewer">
+                        <div class="viewer-tools">
+                            <button class="btn small-btn" onclick="zoomImage(0.1)" title="Zoom In">🔍 +</button>
+                            <button class="btn small-btn" onclick="zoomImage(-0.1)" title="Zoom Out">🔍 -</button>
+                            <button class="btn small-btn" onclick="resetZoom()" title="Reset Zoom">↻ Reset</button>
+                        </div>
+                        <div class="image-stack-container" id="imageStackContainer">
+                            <!-- Bottom Layer: Raw MRI -->
+                            <img id="baseMriImg" class="stack-img base-layer" alt="Base MRI">
+                            <!-- Top Layer: Fused Image -->
+                            <img id="resultImg" class="stack-img overlay-layer" alt="Fused Result">
+                        </div>
+                        <div class="opacity-control">
+                            <label for="opacitySlider">Fused Overlay Opacity: <span
+                                    id="opacityValue">100%</span></label>
+                            <input type="range" id="opacitySlider" min="0" max="100" value="100"
+                                oninput="updateOpacity(this.value)">
+                        </div>
+                    </div>
+                    <!-- This will be filled by the fuse response -->
+                    <div id="fusionReport" class="report-box">
+                        <!-- Result report goes here -->
+                    </div>
+                </div>
+                <br>
+                <a id="downloadBtn" href="#" download="fused_result.png" class="btn"
+                    style="display: inline-block; width: auto;">Download Image</a>
+                <a id="downloadReportBtn" href="#" download="report.txt" class="btn"
+                    style="display: none; width: auto; background-color: #555;">Download Report</a>
+            </div>
+        </div>
+
+        <script src="js/script.js?v=15"></script>
+        <script>
+            checkAuth();
+            setupFileUpload('mriInput', 'mriPreview');
+            setupFileUpload('petInput', 'petPreview');
+        </script>
+</body>
+
+</html>

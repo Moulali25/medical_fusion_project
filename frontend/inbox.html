@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - Development Mail Catcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .inbox-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .inbox-header {
+            background: #1e293b;
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .email-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .email-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.5rem 2rem;
+            transition: background 0.2s;
+        }
+
+        .email-item:hover {
+            background: #f8fafc;
+        }
+
+        .email-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .email-subject {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+
+        .email-body {
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            color: #334155;
+            font-size: 0.9rem;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .empty-inbox {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f1f5f9;">
+    <div class="navbar">
+        <h1><i class="fa-solid fa-brain" style="color: #06b6d4; margin-right: 8px;"></i>MedFuse</h1>
+        <div class="nav-links">
+            <a href="login.html" class="nav-btn login-btn">Back to Login</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div style="max-width: 900px; margin: 0 auto; margin-bottom: 1rem;">
+            <p style="color: #64748b; font-size: 0.95rem;">
+                <strong style="color: #ef4444;">DEVELOPMENT MODE:</strong> This is a local Development Mail Catcher. In
+                professional enterprise environments, real emails are not sent during local testing to prevent spamming.
+                Instead, all outbound emails are instantly intercepted and displayed here for the developer to verify
+                the logic works flawlessly.
+            </p>
+        </div>
+
+        <div class="inbox-container">
+            <div class="inbox-header">
+                <h2 style="margin: 0; font-size: 1.4rem;">Intercepted Outbound Emails</h2>
+                <button onclick="fetchEmails()" class="btn"
+                    style="width: auto; background: #3b82f6; border: 1px solid rgba(255,255,255,0.2);">Refresh
+                    Inbox</button>
+            </div>
+
+            <ul class="email-list" id="emailList">
+                <div class="empty-inbox">Loading intercepted emails...</div>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        async function fetchEmails() {
+            const list = document.getElementById('emailList');
+            try {
+                const response = await fetch('/api/auth/dev-inbox');
+                const data = await response.json();
+
+                if (data.emails && data.emails.length > 0) {
+                    list.innerHTML = '';
+                    data.emails.forEach(email => {
+                        // Function to convert links into clickable anchor tags
+                        const createLinks = (text) => text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+
+                        const li = document.createElement('li');
+                        li.className = 'email-item';
+                        li.innerHTML = `
+                            <div class="email-meta">
+                                <span><strong>To:</strong> ${email.to}</span>
+                                <span>${email.timestamp}</span>
+                            </div>
+                            <div class="email-subject">${email.subject}</div>
+                            <div class="email-body">${createLinks(email.body)}</div>
+                        `;
+                        list.appendChild(li);
+                    });
+                } else {
+                    list.innerHTML = '<div class="empty-inbox">No emails have been intercepted yet. Try sending a password reset link first!</div>';
+                }
+            } catch (error) {
+                list.innerHTML = '<div class="empty-inbox" style="color: red;">Error connecting to local server. Make sure your Python backend is running.</div>';
+            }
+        }
+
+        // Fetch immediately on load
+        fetchEmails();
+    </script>
+</body>
+
+</html>

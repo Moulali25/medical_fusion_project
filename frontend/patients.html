@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFuse - Patient Management</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .patient-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .patient-table th,
+        .patient-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .patient-table th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .patient-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-badge.critical {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .status-badge.review {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+
+        .status-badge.stable {
+            background: #dcfce3;
+            color: #10b981;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #3b82f6;
+            cursor: pointer;
+            font-weight: 500;
+            padding: 0.5rem;
+        }
+
+        .action-btn:hover {
+            text-decoration: underline;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .modal h3 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1><i class="fa-solid fa-brain" style="color: #06b6d4; margin-right: 8px;"></i>MedFuse</h1>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="fusion.html">New Fusion</a>
+            <a href="patients.html"
+                style="font-weight: 700; border-bottom: 2px solid white; padding-bottom: 5px;">Patients</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="reports.html">Reports</a>
+            <a href="history.html">History</a>
+            <a href="about.html">About</a>
+            <a href="settings.html">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2>Patient Registry</h2>
+            <button class="btn" style="width: auto;" onclick="document.getElementById('patientModal').style.display='flex'">+ Add Patient</button>
+        </div>
+
+        <input type="text" class="search-bar" placeholder="Search by Patient ID, Name, or Condition...">
+
+        <table class="patient-table">
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th>Last Scan</th>
+                    <th>Status</th>
+                    <th>Fusions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="patientsTableBody">
+                <!-- Data loaded dynamically -->
+            </tbody>
+        </table>
+
+        <!-- Add Patient Modal -->
+        <div id="patientModal" class="modal">
+            <div class="modal-content">
+                <h3>Add New Patient</h3>
+                <form id="addPatientForm" onsubmit="submitPatient(event)">
+                    <div class="form-group">
+                        <label>Patient ID</label>
+                        <input type="text" id="patId" required placeholder="e.g. MR-2024-0900">
+                    </div>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="patName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" id="patAge" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sex</label>
+                        <select id="patSex" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Condition / Notes</label>
+                        <input type="text" id="patCondition" placeholder="Optional notes">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="patStatus">
+                            <option value="Stable">Stable</option>
+                            <option value="Under Review">Under Review</option>
+                            <option value="High Activity">High Activity</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn" style="background: #94a3b8;" onclick="document.getElementById('patientModal').style.display='none'">Cancel</button>
+                        <button type="submit" class="btn">Save Patient</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        checkAuth();
+        if (typeof loadPatients === 'function') {
+            loadPatients();
+        }
+    </script>
+</body>
+
+</html>
