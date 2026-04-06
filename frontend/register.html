@@ -26,24 +26,34 @@
                 <p>Start fusing medical imaging with precision.</p>
             </div>
 
-            <form onsubmit="register(event)">
-                <div class="form-group clean-group">
-                    <label>Full Name</label>
-                    <input type="text" id="username" class="form-input clean-input" required placeholder="Dr. Jane Doe">
+            <form id="registerForm" onsubmit="register(event)">
+                <div id="registerFields">
+                    <div class="form-group clean-group">
+                        <label>Full Name</label>
+                        <input type="text" id="username" class="form-input clean-input" required placeholder="Dr. Jane Doe">
+                    </div>
+
+                    <div class="form-group clean-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" class="form-input clean-input" required
+                            placeholder="doctor@medfuse.com">
+                    </div>
+
+                    <div class="form-group clean-group">
+                        <label>Password</label>
+                        <input type="password" id="password" class="form-input clean-input" required placeholder="••••••••">
+                    </div>
+
+                    <button type="submit" class="btn btn-premium">Register Securely</button>
                 </div>
 
-                <div class="form-group clean-group">
-                    <label>Email Address</label>
-                    <input type="email" id="email" class="form-input clean-input" required
-                        placeholder="doctor@medfuse.com">
+                <div id="otpFields" class="hidden" style="display: none;">
+                    <div class="form-group clean-group">
+                        <label>Enter Email OTP</label>
+                        <input type="text" id="otp" class="form-input clean-input" placeholder="123456">
+                    </div>
+                    <button type="button" onclick="verifyOTP()" class="btn btn-premium">Verify Email</button>
                 </div>
-
-                <div class="form-group clean-group">
-                    <label>Password</label>
-                    <input type="password" id="password" class="form-input clean-input" required placeholder="••••••••">
-                </div>
-
-                <button type="submit" class="btn btn-premium">Register Securely</button>
             </form>
 
             <p id="message" class="alert-message hidden"></p>

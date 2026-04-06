@@ -13,6 +13,33 @@ auth = Blueprint('auth', __name__)
 
 LOCAL_INBOX_PATH = os.path.join(os.path.dirname(__file__), 'local_inbox.json')
 
+import random
+
+def send_real_email(to_email, subject, body):
+    # Try fetching from environment variables (Render/Production)
+    sender = os.environ.get('MAIL_USERNAME', 'youremail@gmail.com')
+    password = os.environ.get('MAIL_PASSWORD', 'your_app_password')
+    
+    if sender == 'youremail@gmail.com' or password == 'your_app_password':
+        print("WARNING: Real email credentials not set. Falling back to local_inbox.")
+        return send_reset_email(to_email, f"{subject}\n\n{body}")
+
+    msg = EmailMessage()
+    msg.set_content(body)
+    msg['Subject'] = subject
+    msg['From'] = f"MedFuse AI <{sender}>"
+    msg['To'] = to_email
+
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.login(sender, password)
+        server.send_message(msg)
+        server.quit()
+        return True
+    except Exception as e:
+        print("SMTP Error:", e)
+        return False
+
 @auth.route('/register', methods=['POST'])
 def register():
     data = request.json
@@ -26,14 +53,36 @@ def register():
     if User.query.filter_by(username=username).first():
         return jsonify({"error": "Username already exists"}), 400
     
-    # Updated hashing method call
+    # Generate OTP
+    otp = str(random.randint(100000, 999999))
     hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
-    new_user = User(username=username, email=email, password=hashed_password)
+    new_user = User(username=username, email=email, password=hashed_password, is_verified=False, otp=otp)
     
     db.session.add(new_user)
     db.session.commit()
     
-    return jsonify({"message": "User registered successfully!"})
+    # Send OTP Email
+    body = f"Welcome to MedFuse AI!\n\nYour one-time password (OTP) for registration is: {otp}\n\nPlease enter this code to verify your account."
+    if send_real_email(email, "MedFuse - Account Verification OTP", body):
+       return jsonify({"message": "OTP sent! Please check your email.", "status": "otp_sent"})
+    else:
+       # Fallback message
+       return jsonify({"message": "OTP caught in developer mode. Check your local inbox.", "status": "otp_sent"})
+
+@auth.route('/verify-otp', methods=['POST'])
+def verify_otp():
+    data = request.json
+    email = data.get('email')
+    otp = data.get('otp')
+    
+    user = User.query.filter_by(email=email, otp=otp).first()
+    if user:
+        user.is_verified = True
+        user.otp = None
+        db.session.commit()
+        return jsonify({"message": "Email verified successfully! You can now log in."})
+        
+    return jsonify({"error": "Invalid or expired OTP."}), 400
 
 @auth.route('/login', methods=['POST'])
 def login():
@@ -44,6 +93,9 @@ def login():
     user = User.query.filter_by(email=email).first()
 
     if user and check_password_hash(user.password, password):
+        if hasattr(user, 'is_verified') and not user.is_verified:
+            return jsonify({"error": "Please verify your email using the OTP before logging in."}), 401
+            
         login_user(user)
         return jsonify({"message": "Login successful", "username": user.username})
     

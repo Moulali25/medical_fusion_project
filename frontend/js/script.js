@@ -4,11 +4,10 @@ const API_BASE = window.location.hostname === 'localhost' || window.location.hos
 
 // --- Auth Functions ---
 async function register(e) {
-    // ... existing ...
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    if (e) e.preventDefault();
+    const username = document.getElementById('username')?.value;
+    const email = document.getElementById('email')?.value;
+    const password = document.getElementById('password')?.value;
     const msg = document.getElementById('message');
     if (msg) msg.classList.remove('hidden');
 
@@ -19,17 +18,48 @@ async function register(e) {
             body: JSON.stringify({ username, email, password })
         });
         const data = await res.json();
-
-        if (res.ok) {
-            msg.style.color = 'green';
-            msg.textContent = 'Registration successful! Redirecting to login...';
-            setTimeout(() => window.location.href = 'login.html', 1500);
-        } else {
-            msg.style.color = 'red';
-            msg.textContent = data.error;
+        
+        if (msg) {
+            msg.textContent = data.message || data.error;
+            msg.className = `alert-message ${res.ok ? 'success' : 'error'}`;
+        }
+        
+        if (res.ok && data.status === 'otp_sent') {
+            document.getElementById('registerFields').style.display = 'none';
+            document.getElementById('otpFields').style.display = 'block';
         }
     } catch (err) {
-        msg.textContent = 'Network Error';
+        if (msg) {
+            msg.textContent = "Registration error: " + err;
+            msg.className = "alert-message error";
+        }
+    }
+}
+
+async function verifyOTP() {
+    const email = document.getElementById('email').value;
+    const otp = document.getElementById('otp').value;
+    const msg = document.getElementById('message');
+    
+    try {
+        const res = await fetch(`${API_BASE}/auth/verify-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, otp })
+        });
+        const data = await res.json();
+        
+        msg.textContent = data.message || data.error;
+        msg.className = `alert-message ${res.ok ? 'success' : 'error'}`;
+        
+        if (res.ok) {
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1500);
+        }
+    } catch (err) {
+        msg.textContent = "OTP error: " + err;
+        msg.className = "alert-message error";
     }
 }
 
